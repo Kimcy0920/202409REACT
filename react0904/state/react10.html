@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React CDN Example</title>
+    <!-- React and ReactDOM CDN -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <!-- Babel CDN for JSX support -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="container"></div>
+    <script type="text/babel">
+        // React Component -> Class버전으로 변경
+        class LightningCounter extends React.Component {
+            // this.state = {} / this.setState({}) 중요한부분
+
+            constructor(props) { // js는 변수타입X, 인자값
+                super(props); // 부모 생성자 호출
+                this.state = { // 컴포넌트 초기상태 정의
+                    strikes: 0
+                };
+                this.timerTick(); // 변경된 코드1
+                // this.timerTick = this.timerTick.bind(this); 바인드를 사용X
+            }
+
+            // timerTick() {
+            //     this.setState({ // setter
+            //         strikes: this.state.strikes + 100
+            //     });
+            // }
+            // componentDidMount() {
+            //     setInterval(this.timerTick, 1000);
+            // }
+
+            timerTick() { // 변경된 코드2
+                setInterval(() => {
+                    this.setState({ // setter
+                        strikes: this.state.strikes + 1
+                    });
+                }, 1000);
+            }
+            
+
+            render() {
+                var counterStyle = {
+                    color: "#66FFFF",
+                    fontSize: 50
+                };
+                var count = this.state.strikes.toLocaleString();
+                return (
+                    <h1 style={counterStyle}>{count}</h1>
+                );
+            }
+        }
+        class LightningCounterDisplay extends React.Component {
+            render() {
+                var commonStyle = {
+                    margin: 0,
+                    padding: 0
+                };
+                var divStyle = {
+                    width: 250,
+                    textAlign: "center",
+                    backgroundColor: "#020202",
+                    padding: 40,
+                    fontFamily: "sans-serif",
+                    color: "#999999",
+                    borderRadius: 10
+                };
+                var textStyles = {
+                    emphasis: {
+                        fontSize: 38,
+                        ...commonStyle
+                    },
+                    smallEmphasis: {
+                        ...commonStyle
+                    },
+                    small: {
+                        fontSize: 17,
+                        opacity: 0.5,
+                        ...commonStyle
+                    }
+                };
+                return (
+                    <div style={divStyle} >
+                        <LightningCounter />
+                        <h2 style={textStyles.smallEmphasis}>LIGHTNING STRIKES</h2>
+                        <h2 style={textStyles.emphasis}>WORLDWIDE</h2>
+                        <p style={textStyles.small}>(since you loaded this example)</p>
+                    </div >
+                );
+            }
+        }
+        ReactDOM.render(
+            <LightningCounterDisplay />,
+            document.querySelector("#container")
+        );
+    </script>
+</body>
+
+</html>

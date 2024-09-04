@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React CDN Example</title>
+    <!-- React and ReactDOM CDN -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <!-- Babel CDN for JSX support -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            background-color: black;
+        }
+
+        #container {
+            padding: 50px;
+            background-color: #bb3939;
+        }
+/* 
+        .letter {
+            padding: 10px;
+            margin: 10px;
+            background-color: #a915a1;
+            color: #a915a1;
+            display: inline-block;
+            font-family: monospace;
+            font-size: 32px;
+            text-align: center;
+            font-size: 50px;
+            font-weight: bold;
+        } */
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+    <script type="text/babel">
+        var destination = document.querySelector("#container");
+        class Letter extends React.Component {
+            render() {
+                var letterStyle = {
+                    padding: 10,
+                    margin: 10,
+                    backgroundColor: "#FFDE00",
+                    color: "#333",
+                    display: "inline-block",
+                    fontFamily: "monospace",
+                    fontSize: 32,
+                    textAlign: "center"
+                };
+                return (
+                    <div style={letterStyle}>
+                        {this.props.children}
+                    </div>
+                );
+            }
+        }
+        ReactDOM.render(
+            <div>
+                <Letter>ㄹ</Letter>
+                <Letter>ㅇ</Letter>
+                <Letter>ㅋ</Letter>
+                <Letter>ㅋ</Letter>
+            </div>,
+            destination
+        );
+    </script>
+</body>
+
+</html>

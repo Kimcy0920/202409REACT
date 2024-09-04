@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React CDN Example</title>
+    <!-- React and ReactDOM CDN -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <!-- Babel CDN for JSX support -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="container"></div>
+    <script type="text/babel">
+        // React Component -> Class버전으로 변경
+        class Buttonify extends React.Component {
+            render() {
+                return (
+                    <div>
+                        <button type={this.props.behavior}>{this.props.children}</button>
+                    </div>
+                ); // children: 태그와 태그 사이 가운데
+            }
+        }
+        // Render the component to the DOM
+        // ReactDOM.render(<HelloWorld greetTarget="props추가" />, document.getElementById('root'));
+        // greetTarget에 내용입력
+        ReactDOM.render(
+            <div>
+                <Buttonify behavior="submit">데이터 보내기</Buttonify>
+            </div>,
+            document.querySelector("#container")
+        );
+    </script>
+</body>
+
+</html>

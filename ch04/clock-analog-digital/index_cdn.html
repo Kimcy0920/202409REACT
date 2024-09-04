@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>index CDN</title>
+  <!-- React and ReactDOM CDN -->
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <!-- Babel CDN for JSX support -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="content"></div>
+  <script src="text/babel">
+    class Clock extends React.Component {
+      constructor(props) { // 생성자 / *props -> line35-36
+        super(props)
+        this.launchClock()
+        this.state = { // *state
+          currentTime: (new Date()).toLocaleString('en') // currentTime -> line35-36
+        }
+      }
+      launchClock() {
+        setInterval(() => {
+          console.log('Updating...')
+          this.setState({ currentTime: (new Date()).toLocaleString('en') }) // *setState
+        }, 1000)
+      }
+      render() {
+        console.log('Rendering...')
+        return <div>
+          <AnalogDisplay time={this.state.currentTime} />
+          <DigitalDisplay time={this.state.currentTime} />
+        </div>
+      }
+    }
+
+    const AnalogDisplay = function (props) {
+      let date = new Date(props.time)
+      let dialStyle = {
+        position: 'relative',
+        top: 0,
+        left: 0,
+        width: 200,
+        height: 200,
+        borderRadius: 20000,
+        borderStyle: 'solid',
+        borderColor: 'black'
+      }
+      let secondHandStyle = {
+        position: 'relative',
+        top: 100,
+        left: 100,
+        border: '1px solid red',
+        width: '40%',
+        height: 1,
+        transform: 'rotate(' + ((date.getSeconds() / 60) * 360 - 90).toString() + 'deg)',
+        transformOrigin: '0% 0%',
+        backgroundColor: 'red'
+      }
+      let minuteHandStyle = {
+        position: 'relative',
+        top: 100,
+        left: 100,
+        border: '1px solid grey',
+        width: '40%',
+        height: 3,
+        transform: 'rotate(' + ((date.getMinutes() / 60) * 360 - 90).toString() + 'deg)',
+        transformOrigin: '0% 0%',
+        backgroundColor: 'grey'
+      }
+      let hourHandStyle = {
+        position: 'relative',
+        top: 92,
+        left: 106,
+        border: '1px solid grey',
+        width: '20%',
+        height: 7,
+        transform: 'rotate(' + ((date.getHours() / 12) * 360 - 90).toString() + 'deg)',
+        transformOrigin: '0% 0%',
+        backgroundColor: 'grey'
+      }
+      return <div>
+        <div style={dialStyle}>
+          <div style={secondHandStyle} />
+          <div style={minuteHandStyle} />
+          <div style={hourHandStyle} />
+        </div>
+      </div>
+    }
+
+    const DigitalDisplay = function (props) {
+      return <div>{props.time}</div>
+    }
+
+    ReactDOM.render(
+      <Clock />,
+      document.getElementById('content')
+    )
+
+  </script>
+</body>
+
+</html>

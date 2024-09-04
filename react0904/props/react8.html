@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React CDN Example</title>
+    <!-- React and ReactDOM CDN -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <!-- Babel CDN for JSX support -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            background-color: rgba(205, 224, 231, 0.777);
+        }
+
+        #container {
+            padding: 20px;
+            background-color: rgba(253, 253, 228, 0.743);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+    <script type="text/babel">
+        var destination = document.querySelector("#container");
+        class Square extends React.Component {
+            render() {
+                var squareStyle = {
+                    height: 150,
+                    backgroundColor: this.props.color
+                };
+                return (
+                    <div style={squareStyle}>
+                    </div>
+                );
+            }
+        }
+        class Label extends React.Component {
+            render() {
+                var labelStyle = {
+                    fontFamily: "sans-serif",
+                    fontWeight: "bold",
+                    padding: 13,
+                    margin: 0
+                };
+                return (
+                    <p style={labelStyle}>{this.props.color}</p>
+                );
+            }
+        }
+        class Card extends React.Component {
+            render() {
+                var cardStyle = {
+                    height: 200,
+                    width: 150,
+                    padding: 0,
+                    backgroundColor: "#FFF",
+                    boxShadow: "0px 0px 5px #666"
+                };
+                return (
+                    <div style={cardStyle}>
+                        <Square color={this.props.color} />
+                        <Label color={this.props.color} />
+                    </div>
+                );
+            }
+        }
+        ReactDOM.render(
+            <div>
+                <Card color="#FFA737" />
+            </div>,
+            document.querySelector("#container")
+        );
+    </script>
+</body>
+
+</html>
